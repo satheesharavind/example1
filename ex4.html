@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	    $scope.fname = "Satheesh";
+/* watching the function by using console */
+		$scope.$watch('lname', function(newV, oldV) {
+			console.log('new value is ' + newV);
+		});
+
+		/* Timer function */
+	    setTimeout(function(){
+			$scope.lname = "Aravind";
+			$scope.$apply();
+	    }, 2000);
+	});
+</script>
+<body>
+<div ng-controller="myCtrl">
+	<div>First Name: <input ng-model="fname" type="text" />{{fname}}</div>
+
+	<div>Last Name:<input ng-model="lname" type="text" />{{lname}}</div>
+</div>
+</body>
+</html>

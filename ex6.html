@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="countryliApp">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+	var app = angular.module('countryliApp', []);
+	app.controller('myCtrl', function($scope) {
+		/* Array */
+		$scope.ctryArr = [
+			{"name": "China", "population": "1382323332"},
+			{"name": "India", "population": "1326801576"},
+			{"name": "United States", "population": "324118787"}
+		];
+
+		/* Add new */
+		$scope.addCountry = function() {
+			/*$scope.ctryArr.push($scope, [country.newName,country.newPop]);*/
+			console.log($scope.ctryArr);
+			$scope.ctryArr.push({ 'name':$scope.newName, 'population': $scope.newPop});
+			$scope.newName = "";
+			$scope.newPop = "";
+		};
+
+		/* Remove */
+		$scope.remove = function(country) {
+			var i = $scope.ctryArr.indexOf(country);
+			$scope.ctryArr.splice(i, 1);
+		}
+	});
+</script>
+<body>
+<div ng-controller="myCtrl">
+	<ul>
+		<li style="padding: 10px 0;" ng-repeat="country in ctryArr">
+			{{country.name}} - {{country.population}} 
+			<button ng-click="remove(country)">Remove</button>
+		</li>
+	</ul>
+	<form ng-submit="addCountry()">
+		<input type="text" ng-model="newName" required />
+		<input type="number" ng-model="newPop" required />
+		<input type="submit" value="Add" />
+	</form>
+</div>
+</body>
+</html>

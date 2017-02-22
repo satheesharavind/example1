@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="countryTableApp">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+	var app = angular.module('countryTableApp', []);
+	app.controller('myCtrl', function($scope, $http) {
+		$http.get('countries.json').then(function(cty) {
+			$scope.countries = cty.data;
+		});
+	});
+</script>
+<body>
+<div ng-controller="myCtrl">
+		Search: <input type="text" ng-model="searchType">
+		<table>
+			<thead>
+				<tr>
+					<th><a href="" ng-click="sortField = 'country'; reverse = !reverse">Country Name</a></th>
+					<th><a href="" ng-click="sortField = 'population'; reverse = !reverse">Population</a></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="country in countries | filter:searchType | orderBy:sortField:reverse ">
+					<td>{{country.country}}</td>
+					<td>{{country.population}}</td>
+				</tr>
+			</tbody>
+		</table>		
+	
+</div>
+</body>
+</html>
